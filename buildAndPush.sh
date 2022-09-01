@@ -6,7 +6,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 REGISTRY='ghcr.io'
-NAMESPACE='ibm-ai-foundation'
+NAMESPACE='foundation-model-stack'
 NAME='base'
 
 cd "${SCRIPT_DIR}"
