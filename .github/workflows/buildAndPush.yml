@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "torchx" ]
+    branches: [ "torchx" ]
   workflow_dispatch:
 
 jobs:
@@ -11,9 +11,7 @@ jobs:
     environment: image-build-and-push
     strategy:
       matrix:
-          PYTHON_VERSION: [py37, py38, py39]
-          RAY_VERSION: [1.11.0, 1.12.0, 1.13.0]
-          TORCH_VERSION: [1.12.0+cu116, 1.11.0+cu115]
+          TORCH_VERSION: [nightly+cu113]
     steps:
       # docker login source https://github.com/docker/login-action
       - uses: docker/login-action@v2
@@ -28,6 +26,5 @@ jobs:
 
       - name: build and push
         env:
-          RAY_VERSION: ${{ matrix.RAY_VERSION }}-${{matrix.PYTHON_VERSION}}-gpu
           TORCH_VERSION: ${{ matrix.TORCH_VERSION }}
         run: ./buildAndPush.sh
