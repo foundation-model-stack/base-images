@@ -1,25 +1,23 @@
+ARG BASE_IMAGE=nvcr.io/nvidia/pytorch:22.05-py3
+FROM $BASE_IMAGE
 
-ARG RAY_VERSION
-FROM rayproject/ray:${RAY_VERSION}
+WORKDIR /workspace
 
-RUN sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
+# Install Python and pip, and build-essentials if some requirements need to be compiled
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    python3-dev \
+    python3-distutils \
+    python3-venv \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /tmp \
+    && curl -O https://bootstrap.pypa.io/get-pip.py \
+    && python3 get-pip.py
 
-# dev and debug
-RUN sudo apt-get update && sudo apt-get install -y \
-    build-essential vim libc6-dbg gdb valgrind \
-    && sudo rm -rf /var/lib/apt/lists/* \
-    && sudo apt-get clean
-
-#install torch
-ARG TORCH_VERSION
-RUN pip install --no-cache-dir torch=="${TORCH_VERSION}" -f https://download.pytorch.org/whl/torch_stable.html
-
-RUN mkdir /home/ray/workspace
-WORKDIR /home/ray/workspace
-
-ENV PYTHONPATH "/home/ray/workspace:${PYTHONPATH}"
-ENV RAY_USAGE_STATS_ENABLED=0
-
-# change group permissions for running in OCP
-RUN sudo chgrp -R 0 /home/ray/workspace
-RUN sudo chmod -R g+w /home/ray/workspace
+#Get the FSDP workshop GitHub repo
+RUN git clone https://github.com/pytorch/workshops.git && \
+    pip install -r ./workshops/FSDP_Workshop/requirements.txt && \
+    pip uninstall torch torchaudio torchvision -y && \
+    pip3 install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu113
