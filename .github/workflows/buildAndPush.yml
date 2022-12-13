@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
           PYTHON_VERSION: [py37, py38, py39]
-          RAY_VERSION: [1.11.0, 1.12.0, 1.13.0]
+          RAY_VERSION: [1.11.0, 1.12.0, 1.13.0, 2.1.0]
           TORCH_VERSION: [1.12.0+cu116, 1.11.0+cu115]
     steps:
       # docker login source https://github.com/docker/login-action
