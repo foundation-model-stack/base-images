@@ -1,7 +1,10 @@
-name: CI
+name: build-and-push-ray-pytorch
 
 on:
   push:
+    paths: 
+      - '.github/workflows/build-and-push-ray-pytorch.yml'
+      - 'ray-and-pytorch/*'
     branches: [ "main" ]
   workflow_dispatch:
 
@@ -30,4 +33,4 @@ jobs:
         env:
           RAY_VERSION: ${{ matrix.RAY_VERSION }}-${{matrix.PYTHON_VERSION}}-gpu
           TORCH_VERSION: ${{ matrix.TORCH_VERSION }}
-        run: ./buildAndPush.sh
+        run: ./ray-and-pytorch/buildAndPush.sh
