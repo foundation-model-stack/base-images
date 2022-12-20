@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # override image name with optional command line argument ./buildAndPush.sh <your_custom_tag>
-# otherwise it will be tagged with minimal-pytorch-nightly and timestamp
+# otherwise it will be tagged with pytorch-latest-nightly and timestamp
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -15,7 +15,7 @@ TIMESTAMP=$(date "+%Y%m%d")
 
 # note: docker tags must be valid ASCII and may contain lowercase and uppercase letters, digits, underscores, periods and dashes.
 # A tag name may not start with a period or a dash and may contain a maximum of 128 characters
-VERSION="$(echo ${1:-minimal-pytorch-nightly-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
+VERSION="$(echo ${1:-pytorch-latest-nightly-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
 TAG="${REGISTRY}/${NAMESPACE}/${NAME}:${VERSION}"
 
 docker build -t "${TAG}" .
