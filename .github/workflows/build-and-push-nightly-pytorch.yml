@@ -1,9 +1,9 @@
-name: build-and-push-nightly-pytorch
+name: build-and-push-nightly-pytorch-onchange
 
 on:
-  schedule:
-    # Runs "nightly, at 3am" (see https://crontab.guru)
-    - cron: '0 3 * * *'
+  push:
+    branches: [ "manual-push-nightly" ]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
