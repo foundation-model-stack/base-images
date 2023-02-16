@@ -6,19 +6,19 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-	apt-get install -y vim nmon && \
-	apt-get -y clean
+    apt-get install -y vim nmon && \
+    apt-get -y clean
 
 # permanent dependencies, put on top to avoid re-build
 RUN pip install \
-	transformers==4.26.1 \
-	aim==3.16.0 \
-	datasets \
-	tqdm \
-	protobuf \
-	colorama \
-	scikit-learn \
-	--no-cache-dir
+    transformers==4.26.1 \
+    aim==3.16.0 \
+    datasets \
+    tqdm \
+    protobuf \
+    colorama \
+    scikit-learn \
+    --no-cache-dir
 
 # setup .aim_profile (needed to get aim running)
 RUN mkdir -p ${HOME} && \
