@@ -5,8 +5,10 @@ ENV HOME=/homedir \
     AIM_UI_TELEMETRY_ENABLED=0
 
 # tools
-RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y vim nmon clang-14 && \
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
+    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    apt-get install -y vim nmon gcc cuda && \
     apt-get -y clean
 
 # permanent dependencies, put on top to avoid re-build
