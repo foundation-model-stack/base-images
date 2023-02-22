@@ -5,10 +5,14 @@ ENV HOME=/homedir \
     AIM_UI_TELEMETRY_ENABLED=0
 
 # tools
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
+RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    apt-get install -y gnupg vim nmon gcc software-properties-common && \
+    apt-key del 7fa2af80 && \
+    add-apt-repository contrib && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y vim nmon gcc cuda && \
+    apt-get install -y vim nmon gcc cuda-toolkit-11-7 && \
     apt-get -y clean
 
 # permanent dependencies, put on top to avoid re-build
