@@ -4,6 +4,8 @@ on:
   schedule:
     # Runs "nightly, at 3am" (see https://crontab.guru)
     - cron: '0 3 * * *'
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
