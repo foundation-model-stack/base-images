@@ -6,14 +6,14 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y gnupg vim nmon gcc software-properties-common && \
-    apt-key del 7fa2af80 && \
-    add-apt-repository contrib && \
-    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
-    dpkg -i cuda-keyring_1.0-1_all.deb && \
-    apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y cuda-compiler-11-7 cuda-libraries-11-7 cuda-libraries-dev-11-7 && \
-    apt-get -y clean
+    apt-get install -y gnupg vim nmon gcc software-properties-common
+    # apt-key del 7fa2af80 && \
+    # add-apt-repository contrib && \
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
+    # dpkg -i cuda-keyring_1.0-1_all.deb && \
+    # apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    # apt-get install -y cuda-compiler-11-7 cuda-libraries-11-7 cuda-libraries-dev-11-7 && \
+    # apt-get -y clean
 
 # This is important for certain pytorch deps
 RUN pip install --upgrade setuptools
@@ -45,5 +45,3 @@ RUN chgrp -R 0 /opt/conda && \
 # RUN pwd && pwd && pwd && pwd
 # RUN pip install --pre torch==1.14.0.dev20221013+cu117 torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
 RUN pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117 --no-cache-dir
-# This is only until the python nightlies are fixed!!
-RUN pip install --upgrade --pre triton
