@@ -36,4 +36,6 @@ RUN chgrp -R 0 /opt/conda && \
 # put this at the end as we change this often, we add dummy steps to force rebuild the following lines when needed
 # RUN pwd && pwd && pwd && pwd
 # RUN pip install --pre torch==1.14.0.dev20221013+cu117 torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
-RUN pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117 --no-cache-dir
+
+# !!!!! Reverting to CUDA 11.5 / NCCL 2.11.4 
+RUN pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu115 --no-cache-dir
