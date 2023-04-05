@@ -7,6 +7,12 @@ ENV HOME=/homedir \
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y vim nmon && \
+    apt-key del 7fa2af80 && \
+    add-apt-repository contrib && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
+    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    apt-get install -y cuda-tools-11-7 && \
     apt-get -y clean
 
 # permanent dependencies, put on top to avoid re-build
@@ -38,4 +44,4 @@ RUN chgrp -R 0 /opt/conda && \
 # RUN pip install --pre torch==1.14.0.dev20221013+cu117 torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
 
 # !!!!! Reverting to CUDA 11.5 / NCCL 2.11.4 
-RUN pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu115 --no-cache-dir
+RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu115 --no-cache-dir
