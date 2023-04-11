@@ -6,7 +6,7 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y vim nmon && \
+    apt-get install -y gnupg vim nmon && \
     apt-key del 7fa2af80 && \
     add-apt-repository contrib && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
@@ -17,7 +17,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
 
 # permanent dependencies, put on top to avoid re-build
 RUN pip install \
-    transformers==4.26.1 \
+    transformers==4.27.4 \
     aim==3.16.0 \
     datasets \
     tqdm \
