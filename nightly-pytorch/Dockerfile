@@ -6,7 +6,7 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y gnupg vim nmon && \
+    apt-get install -y gnupg vim nmon software-properties-common && \
     apt-key del 7fa2af80 && \
     add-apt-repository contrib && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
