@@ -17,7 +17,12 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
 
 # This is important for certain pytorch deps
 RUN pip install --upgrade setuptools
-# permanent dependencies, put on top to avoid re-build
+
+# PYtorch nightly install
+RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir
+
+# permanent dependencies, we put them after torch so we don't end up installing torch twice and wasting a lot of space
+# (each install of torch is about 2GB!!!)
 # decision has been made to have them as the latest version always, as this is a nightly image after all
 RUN pip install \
     transformers \
@@ -43,8 +48,3 @@ RUN chgrp -R 0 . && \
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R g=u /opt/conda
-
-# put this at the end as we change this often, we add dummy steps to force rebuild the following lines when needed
-# RUN pwd && pwd && pwd && pwd
-# RUN pip install --pre torch==1.14.0.dev20221013+cu117 torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
-RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir
