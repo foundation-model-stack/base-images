@@ -47,4 +47,6 @@ RUN chgrp -R 0 . && \
     chmod -R g=u .
 
 RUN chgrp -R 0 /opt/conda && \
+    chmod -R a+w /opt/conda && \
     chmod -R g=u /opt/conda
+
