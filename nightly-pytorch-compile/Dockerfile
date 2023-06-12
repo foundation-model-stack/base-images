@@ -12,7 +12,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y cuda-compiler-11-8 cuda-libraries-11-8 cuda-libraries-dev-11-8 cuda-nsight-systems-11-8 && \
+    apt-get install -y cuda-compiler-11-8 cuda-libraries-dev-11-8 cuda-nsight-systems-11-8 && \
     apt-get -y clean
 
 # This is important for certain pytorch deps
