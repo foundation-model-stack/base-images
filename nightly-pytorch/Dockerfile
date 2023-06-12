@@ -20,10 +20,14 @@ RUN chgrp -R 0 /opt/conda && \
     chmod -R g=u /opt/conda
 
 # This is important for certain pytorch deps
-RUN pip install --upgrade setuptools
+RUN pip install --upgrade setuptools && \
+    chmod -R g+w /opt/conda && \
+    chmod -R g=u /opt/conda
 
-# PYtorch nightly install
-RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir
+# Pytorch nightly install
+RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir && \
+    chmod -R g+w /opt/conda && \
+    chmod -R g=u /opt/conda
 
 # permanent dependencies, we put them after torch so we don't end up installing torch twice and wasting a lot of space
 # (each install of torch is about 2GB!!!)
@@ -36,7 +40,9 @@ RUN pip install \
     protobuf \
     colorama \
     scikit-learn \
-    --no-cache-dir
+    --no-cache-dir && \
+    chmod -R g+w /opt/conda && \
+    chmod -R g=u /opt/conda
 
 # setup .aim_profile (needed to get aim running)
 RUN mkdir -p ${HOME} && \
