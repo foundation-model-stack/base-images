@@ -15,6 +15,10 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y cuda-compiler-11-8 cuda-libraries-dev-11-8 cuda-nsight-systems-11-8 && \
     apt-get -y clean
 
+RUN chgrp -R 0 /opt/conda && \
+    chmod -R a+w /opt/conda && \
+    chmod -R g=u /opt/conda
+
 # This is important for certain pytorch deps
 RUN pip install --upgrade setuptools
 
@@ -45,8 +49,3 @@ WORKDIR /workspace
 
 RUN chgrp -R 0 . && \
     chmod -R g=u .
-
-RUN chgrp -R 0 /opt/conda && \
-    chmod -R a+w /opt/conda && \
-    chmod -R g=u /opt/conda
-
