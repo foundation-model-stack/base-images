@@ -13,6 +13,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y cuda-compiler-11-8 cuda-nsight-systems-11-8 && \
+    apt-get install -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 && \
     apt-get -y clean
 
 RUN chgrp -R 0 /opt/conda && \
@@ -48,6 +49,8 @@ RUN pip install \
     chmod -R g=u /opt/conda
 
 # xformers install (built from source)
+ENV FORCE_CUDA=1
+ENV CUDA_HOME=/usr/local/cuda
 RUN pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda
