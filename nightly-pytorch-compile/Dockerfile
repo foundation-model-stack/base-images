@@ -42,7 +42,13 @@ RUN pip install \
     protobuf \
     colorama \
     scikit-learn \
+    ninja \
     --no-cache-dir && \
+    chmod -R g+w /opt/conda && \
+    chmod -R g=u /opt/conda
+
+# xformers install (built from source)
+RUN pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda
 
