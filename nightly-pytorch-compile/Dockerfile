@@ -54,7 +54,7 @@ RUN apt-get install -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcus
     pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda && \
-    apt-get uninstall -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
+    apt-get remove -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
     apt-get -y clean
 
 # setup .aim_profile (needed to get aim running)
