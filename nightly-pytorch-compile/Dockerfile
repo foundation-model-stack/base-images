@@ -48,15 +48,16 @@ RUN pip install \
     chmod -R g=u /opt/conda
 
 # xformers install (built from source)
-ENV CUDA_HOME=/usr/local/cuda
-ENV MAX_JOBS=1
-ENV TORCH_CUDA_ARCH_LIST="7.0;7.5;8.0;8.6"
-RUN apt-get install -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
-    pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers --no-cache-dir && \
-    chmod -R g+w /opt/conda && \
-    chmod -R g=u /opt/conda && \
-    apt-get remove -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
-    apt-get -y clean
+# deactivated until we get better workers as there isn't enough ram, cpu, or disk space to compile them anymore
+# ENV CUDA_HOME=/usr/local/cuda
+# ENV MAX_JOBS=2
+# ENV TORCH_CUDA_ARCH_LIST="7.0;7.5;8.0;8.6"
+# RUN apt-get install -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
+#     pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers --no-cache-dir && \
+#     chmod -R g+w /opt/conda && \
+#     chmod -R g=u /opt/conda && \
+#     apt-get remove -y libcublas-11-8 libcublas-dev-11-8 libcusparse-11-8 libcusparse-dev-11-8 libcusolver-11-8 libcusolver-dev-11-8 libcurand-11-8 libcurand-dev-11-8 && \
+#     apt-get -y clean
 
 # setup .aim_profile (needed to get aim running)
 RUN mkdir -p ${HOME} && \
