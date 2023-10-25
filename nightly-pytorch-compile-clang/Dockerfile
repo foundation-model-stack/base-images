@@ -6,14 +6,16 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    apt-get install -y gnupg vim nmon software-properties-common && \
     apt-key del 7fa2af80 && \
     add-apt-repository contrib && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y gnupg vim nmon clang software-properties-common && \
-    apt-get install -y cuda-compiler-12-1 cuda-nsight-systems-12-1 && \
-    apt-get -y clean
+    apt-get install -y clang cuda-compiler-12-1 cuda-nsight-systems-12-1 && \
+    apt-get -y clean && \
+    update-alternatives --set cc /usr/bin/clang && \
+    update-alternatives --set c++ /usr/bin/clang++
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R a+w /opt/conda && \
