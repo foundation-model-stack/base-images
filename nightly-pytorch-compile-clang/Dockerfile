@@ -6,12 +6,12 @@ ENV HOME=/homedir \
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y gnupg vim nmon clang software-properties-common && \
     apt-key del 7fa2af80 && \
     add-apt-repository contrib && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
+    apt-get install -y gnupg vim nmon clang software-properties-common && \
     apt-get install -y cuda-compiler-12-1 cuda-nsight-systems-12-1 && \
     apt-get -y clean
 
@@ -25,7 +25,7 @@ RUN pip install --upgrade setuptools && \
     chmod -R g=u /opt/conda
 
 # Pytorch nightly install
-RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir && \
+RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu121 --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda
 
