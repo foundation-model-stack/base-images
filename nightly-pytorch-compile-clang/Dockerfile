@@ -13,7 +13,9 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y clang cuda-compiler-12-1 cuda-nsight-systems-12-1 && \
-    apt-get -y clean
+    apt-get -y clean && \
+    update-alternatives --set c++ /usr/bin/clang++ && \
+    clang++ --version
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R a+w /opt/conda && \
