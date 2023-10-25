@@ -16,7 +16,8 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get -y clean && \
     update-alternatives --set cc /usr/bin/clang && \
     update-alternatives --set c++ /usr/bin/clang++ && \
-    clang++ --version
+    whereis clang && \
+    whereis clang++
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R a+w /opt/conda && \
