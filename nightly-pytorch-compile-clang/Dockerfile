@@ -14,6 +14,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y clang cuda-compiler-12-1 cuda-nsight-systems-12-1 && \
     apt-get -y clean && \
+    update-alternatives --set cc /usr/bin/clang && \
     update-alternatives --set c++ /usr/bin/clang++ && \
     clang++ --version
 
