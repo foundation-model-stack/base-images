@@ -1,19 +1,26 @@
-# switch to miniconda3 base as pytorch base uses python3.7
-FROM continuumio/miniconda3:latest
+FROM condaforge/miniforge3
 
 ENV HOME=/homedir \
-    AIM_UI_TELEMETRY_ENABLED=0
+    AIM_UI_TELEMETRY_ENABLED=0 \
+    MOFED_VER=23.04-1.1.3.0 \
+    OS_VER=ubuntu22.04 \
+    PLATFORM=x86_64
 
 # tools
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y gnupg vim nmon gcc software-properties-common && \
+    apt-get install -y gnupg vim nmon gcc software-properties-common make git git-lfs wget curl unzip libaio-dev && \
     apt-key del 7fa2af80 && \
     add-apt-repository contrib && \
-    wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb && \
-    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb && \
+    dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y cuda-compiler-11-8 cuda-nsight-systems-11-8 cuda-libraries-11-8 cuda-libraries-dev-11-8 && \
+    apt-get install -y cuda-compiler-12-1 cuda-nsight-systems-12-1 cuda-libraries-12-1 cuda-libraries-dev-12-1 libnvidia-compute-525 && \
     apt-get -y clean
+
+RUN wget --quiet http://content.mellanox.com/ofed/MLNX_OFED-${MOFED_VER}/MLNX_OFED_LINUX-${MOFED_VER}-${OS_VER}-${PLATFORM}.tgz && \
+    tar -xvzf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64.tgz && \
+    ./MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64/mlnxofedinstall --user-space-only --without-fw-update --all --force && \
+    rm -rf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64 MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64.tgz
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R a+w /opt/conda && \
@@ -25,7 +32,7 @@ RUN pip install --upgrade setuptools && \
     chmod -R g=u /opt/conda
 
 # Pytorch nightly install
-RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --no-cache-dir && \
+RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu121 --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda
 
@@ -34,6 +41,7 @@ RUN pip install --pre --upgrade torch torchvision --extra-index-url https://down
 # decision has been made to have them as the latest version always, as this is a nightly image after all
 RUN pip install \
     transformers \
+    sentencepiece \
     aim \
     datasets \
     accelerate \
