@@ -12,7 +12,6 @@ ENV HOME=/homedir \
 RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get install -y gnupg vim nmon gcc software-properties-common make git git-lfs wget curl unzip libaio-dev && \
     apt-key del 7fa2af80 && \
-    add-apt-repository contrib && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
