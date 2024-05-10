@@ -19,9 +19,9 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     apt-get -y clean
 
 RUN wget --quiet http://content.mellanox.com/ofed/MLNX_OFED-${MOFED_VER}/MLNX_OFED_LINUX-${MOFED_VER}-${OS_VER}-${PLATFORM}.tgz && \
-    tar -xvzf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64.tgz && \
-    ./MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64/mlnxofedinstall --user-space-only --without-fw-update --all --force && \
-    rm -rf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64 MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu22.04-x86_64.tgz
+    tar -xvzf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu20.04-x86_64.tgz && \
+    ./MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu20.04-x86_64/mlnxofedinstall --user-space-only --without-fw-update --all --force && \
+    rm -rf MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu20.04-x86_64 MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu20.04-x86_64.tgz
 
 RUN chgrp -R 0 /opt/conda && \
     chmod -R a+w /opt/conda && \
