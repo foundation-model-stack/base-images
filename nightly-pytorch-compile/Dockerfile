@@ -3,7 +3,7 @@ FROM condaforge/miniforge3
 ENV HOME=/homedir \
     AIM_UI_TELEMETRY_ENABLED=0 \
     MOFED_VER=23.04-1.1.3.0 \
-    OS_VER=ubuntu22.04 \
+    OS_VER=ubuntu20.04 \
     PLATFORM=x86_64 \
     DEBIAN_FRONTEND=noninteractive \
     TZ=Etc/UTC
