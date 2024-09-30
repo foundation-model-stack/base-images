@@ -22,4 +22,4 @@ docker build -t "${TAG}" .
 
 docker push "${TAG}"
 
-echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' ${TAG})" >> $GITHUB_OUTPUT
+echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' ${TAG} | cut -f 2 -d '@')" >> $GITHUB_OUTPUT
