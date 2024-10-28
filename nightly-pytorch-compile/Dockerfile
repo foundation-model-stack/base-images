@@ -15,7 +15,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y cuda-compiler-12-1 cuda-nsight-12-1 cuda-nsight-systems-12-1 cuda-nsight-compute-12-1 cuda-libraries-12-1 cuda-libraries-dev-12-1 libnvidia-compute-525 && \
+    apt-get install -y cuda-compiler-12-4 cuda-nsight-12-4 cuda-nsight-systems-12-4 cuda-nsight-compute-12-4 cuda-libraries-12-4 cuda-libraries-dev-12-4 libnvidia-compute-535 && \
     apt-get -y clean
 
 RUN wget --quiet http://content.mellanox.com/ofed/MLNX_OFED-${MOFED_VER}/MLNX_OFED_LINUX-${MOFED_VER}-${OS_VER}-${PLATFORM}.tgz && \
@@ -33,7 +33,7 @@ RUN pip install --upgrade setuptools && \
     chmod -R g=u /opt/conda
 
 # Pytorch nightly install
-RUN pip install --pre --upgrade torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu121 --no-cache-dir && \
+RUN pip install --pre --upgrade torch torchvision --index-url https://download.pytorch.org/whl/nightly/cu124 --no-cache-dir && \
     chmod -R g+w /opt/conda && \
     chmod -R g=u /opt/conda
 
