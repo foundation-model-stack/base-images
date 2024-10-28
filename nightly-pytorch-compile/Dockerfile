@@ -15,7 +15,7 @@ RUN apt-get -y -o Acquire::Max-FutureTime=86400 update && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get -y -o Acquire::Max-FutureTime=86400 update && \
-    apt-get install -y cuda-compiler-12-4 cuda-nsight-12-4 cuda-nsight-systems-12-4 cuda-nsight-compute-12-4 cuda-libraries-12-4 cuda-libraries-dev-12-4 libnvidia-compute-535 && \
+    apt-get install -y cuda-compiler-12-4 cuda-nsight-12-4 cuda-nsight-systems-12-4 cuda-nsight-compute-12-4 && \
     apt-get -y clean
 
 RUN wget --quiet http://content.mellanox.com/ofed/MLNX_OFED-${MOFED_VER}/MLNX_OFED_LINUX-${MOFED_VER}-${OS_VER}-${PLATFORM}.tgz && \
